@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Highcharts data from JSON Response</title>
+		<style>
+		body{
+			margin-top: 30px;
+			margin-left:40px;
+		}
+		</style>
+	<script> src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+	<script>
+
+    a = 0
+    as = 0
+    an = 0
+    bz = 0
+    c = 0
+    cs = 0
+    e = 0
+    g = 0
+    h = 0
+    j = 0
+    l = 0
+    ec = 0
+    m =0
+
+        $(function () {
+                var processed_json = new Array();
+                $.getJSON(emloyees.json’, function(data) {
+                    for (i = 0; i < data.length; i++){
+                        processed_json.push([data[i].key, data[i].value]);
+                    }
+                    Highcharts.chart('container', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'World\'s largest cities per 2014'
+                        },
+                        subtitle: {
+                            text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
+                        },
+                        xAxis: {
+                            type: 'category',
+                            labels: {
+                                rotation: -45,
+                                style: {
+                                    fontSize: '13px',
+                                    fontFamily: 'Verdana, sans-serif'
+                                }
+                            }
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: 'Population (millions)'
+                            }
+                        },
+                        legend: {
+                            enabled: false
+                        },
+                        tooltip: {
+                            pointFormat: 'Population in 2008: <b>{point.y:.1f} millions</b>'
+                        },
+                        series: [{
+                            name: 'Population',
+                            data: [
+                                ['AFRICAN STUDIES PROGRAM-1660', a],
+                                ['ANTHROPOLOGY-1604', an],
+                                ['ASTRONOMY-1606', as],
+                                ['BOTANY & ZOOLOGY GENERAL-1690', bz],
+                                ['CHEMISTRY-1612', c],
+                                ['CRIM & SOC GENERAL-1692', cs],
+                                ['ENGLISH-1620', e],
+                                ['GEOLOGICAL SCIENCES-1624', g],
+                                ['HISTORY-1628', h],
+                                ['JEWISH STUDIES-1674', j],
+                                ['LINGUISTICS-1630', l],
+                                ['LS-ECONOMICS-1603', ec],
+                                ['MATHEMATICS-1632', m],
+
+                            ],
+                            dataLabels: {
+                                enabled: true,
+                                rotation: -90,
+                                color: '#FFFFFF',
+                                align: 'right',
+                                format: '{point.y:.1f}', // one decimal
+                                y: 10, // 10 pixels down from the top
+                                style: {
+                                    fontSize: '13px',
+                                    fontFamily: 'Verdana, sans-serif'
+                                }
+                            }
+                        }]
+                    });
+    </script>
+</head>
+<body>
+   <div style="width: 800px; margin: 2em auto; padding: 1em; border: 1px solid red; border-radius: 0.5em">
+	Highcharts data load from a JSON using manual JSON Processing
+	</div>
+    <div id="container" style="height: 400px"></div>
+
+</body>
+</html>

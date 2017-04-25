@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Salaries by Title</title>
+
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <!-- <script src="js/highcharts.js"></script> -->
+        <script src="js/themes/dark-green.js"></script>
+        <script src="js/modules/exporting.js"></script>
+</head>
+<body>
+
+    <h1>Test: My first chart with Highcharts</h1>
+
+
+        <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
+<!-- IMPORTANT: When you have linked a .css file to your own HTML page,
+    DO NOT put the styles for the container into the HTML, which I have done
+    here! Instead, style the #container in your CSS file. -->
+
+<p>The original dat came from : <a href="www.ir.ufl.edu/factbook/UF_Salaries.pdf" target="_blank">here</a>.</p>
+
+
+
+<!-- add the script for the chart BEFORE the closing /body tag -->
+<script>
+
+dp = 0
+p = 0
+ap = 0
+sl = 0
+ai = 0
+var processed_json = new Array();
+// $.getJSON('js/data.json', function(data) {
+
+$.getJSON('https://api.myjson.com/bins/wq3zf', function(data) {
+    for (i = 0; i < data.length; i++){
+        processed_json.push([data[i].key, data[i].value]);
+        }
+        var dp = 0;
+
+            $.each(employees, function () {
+             dp += this.rate("DEAN & PROF");
+            });
+            // dp = employees.reduce(function (sum, rate) {
+            //     return sum + rate.amount;
+            //     }, 0    });
+
+            // total = 0,  //set a variable that holds our total
+            // taxes = foo.employees,  //reference the element in the "JSON" aka object literal we want
+            // i;
+            // for (i = 0; i < employees.length; i++) {  //loop through the array
+            //     total += employees[i].rate;  //Do the math!
+            //     }
+// console.log(total);
+
+$(document).ready(function () {
+
+    // Build the chart
+
+
+    Highcharts.chart('container', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Titles That Earn The Most'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
+            }
+        },
+        series: [{
+            name: 'Titles',
+            colorByPoint: true,
+            data: [{
+                name: 'DEAN & PROF',
+                y: x + y
+            }, {
+                name: 'PROF',
+                y: 24.03,
+                sliced: true,
+                selected: true
+            }, {
+                name: 'ASO PROF',
+                y: 10.38
+            }, {
+                name: 'ST LECTURER',
+                y: 4.77
+            }, {
+                name: 'LECTURER',
+                y: 0.91
+            }, {
+                name: 'ASO IN',
+                y: 0.2
+            }]
+        }]
+    });
+});
+});
+</script>
+
+<script src="js/data.js"></script>
+</body>
+</html>
